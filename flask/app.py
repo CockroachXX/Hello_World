@@ -60,17 +60,7 @@ anglesSet = {24: [2, 20, 44], 25: [0, 26, 47], 34: [8, 35, 38], 35: [6, 29, 53],
 
 @app.route('/')
 def mainPage():
-    return render_template('mofang.html')
-
-
-@app.route('/test')
-def mofang3D():
-    return render_template('mofang3D.html')
-
-
-@app.route('/test2')
-def mofangInput():
-    return render_template('input.html')
+    return render_template('solveCube.html')
 
 
 @app.route('/initState', methods=['POST'])
@@ -121,14 +111,6 @@ def solve():
     print data
     return jsonify(data)
 
-
-@app.route('/a', methods=['GET'])
-def test():
-    stateArray = [33, 16, 38, 3, 4, 41, 29, 10, 24, 51, 1, 18, 34, 13, 12, 2, 52, 26, 36, 50, 6, 32, 22, 14, 44, 37, 27,
-                  45, 5, 8, 43, 31, 25, 42, 39, 0, 20, 28, 47, 7, 40, 46, 15, 30, 35, 53, 21, 11, 48, 49, 19, 17, 23, 9]
-    state = np.array(stateArray)
-    res = nnetSolve.solve(state)
-    return "a"
 
 
 @app.route('/solvebyinput', methods=['POST'])
