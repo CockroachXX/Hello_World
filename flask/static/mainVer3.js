@@ -136,13 +136,13 @@ function setSolnText(setColor=true) {
 
 function enableInput() {
 	document.getElementById("scramble").disabled=false;
-	document.getElementById("solve").disabled=false;
+	//document.getElementById("solve").disabled=false;
 	$(document).on("keypress", buttonPressed);
 }
 
 function disableInput() {
 	document.getElementById("scramble").disabled=true;
-	document.getElementById("solve").disabled=true;
+	//document.getElementById("solve").disabled=true;
 	$(document).off("keypress", buttonPressed);
 }
 
@@ -208,7 +208,7 @@ function solveCube() {
 	// disableInput();
 	clearSoln();
 	document.getElementById("solution_text").innerHTML = "SOLVING..."
-	alert(JSON.stringify(state));
+	//alert(JSON.stringify(state));
 	$.ajax({
 		url: '/solve',
 		data: {"state": JSON.stringify(state)},
@@ -267,6 +267,17 @@ function solveCubeByInput() {
 	});
 }
 
+function recoverOrder() {
+	clearSoln();
+	state = [2, 5, 8, 1, 4, 7, 0, 3, 6, 11, 14, 17, 10, 13, 16, 9, 12, 15, 20, 23, 26, 19, 22, 25, 18, 21, 24, 29, 32, 35,
+	    28, 31, 34, 27, 30, 33, 42, 39, 36, 43, 40, 37, 44, 41, 38, 47, 50, 53, 46, 49, 52, 45, 48, 51];
+	setStickerColors(state);
+	//for (var i = 0; i < 54; i++) {
+	//	state[i] = i;
+	//}
+	setStickerColors(state);
+}
+
 $( document ).ready($(function() {
 	// disableInput();
 	clearSoln();
@@ -297,6 +308,11 @@ $( document ).ready($(function() {
 	$('#scramble').click(function() {
 		scrambleCube()
 	});
+
+	$('#recoverOrder').click(function() {
+		recoverOrder()
+	});
+
 
 	$('#solve').click(function() {
 		solveCube()
@@ -426,4 +442,3 @@ function colorSet(ele){
 		setStickerColors(state);
 	}
 }
-
