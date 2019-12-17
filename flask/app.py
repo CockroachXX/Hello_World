@@ -10,8 +10,7 @@ o_path = os.getcwd()
 sys.path.append(o_path)
 sys.path.append('../')
 sys.path.append(os.path.abspath(os.path.dirname(os.getcwd())+os.path.sep+".") + '/code/scripts/')
-print os.path.abspath(os.path.dirname(os.getcwd())+os.path.sep+".") + '/code/scripts/'
-import nnetSolve
+
 
 app = Flask(__name__)
 
@@ -60,7 +59,17 @@ anglesSet = {24: [2, 20, 44], 25: [0, 26, 47], 34: [8, 35, 38], 35: [6, 29, 53],
 
 @app.route('/')
 def mainPage():
-    return render_template('solveCube.html')
+    return render_template('mofang.html')
+
+
+@app.route('/test')
+def mofang3D():
+    return render_template('mofang3D.html')
+
+
+@app.route('/test2')
+def mofangInput():
+    return render_template('input.html')
 
 
 @app.route('/initState', methods=['POST'])
@@ -69,7 +78,7 @@ def initState():
             'rotateIdxs_old': rotateIdxs_old, 'state': state, 'stateToFE': stateToFE}
     return jsonify(data)
 
-
+'''
 @app.route('/solve', methods=['POST'])
 def solve():
     # FEToState = [6, 3, 0, 7, 4, 1, 8, 5, 2, 15, 12, 9, 16, 13, 10, 17, 14, 11, 24, 21, 18, 25, 22, 19, 26, 23, 20, 33,
@@ -110,7 +119,24 @@ def solve():
     data = {'moves': moves, 'moves_rev': moves_rev, 'solve_text': solve_text}
     print data
     return jsonify(data)
+'''
 
+@app.route('/solve', methods=['POST'])
+def solve():
+    url = 'http://deepcube.igb.uci.edu'
+    import requests
+    state = request.form.get('state')
+    r = requests.post(url + '/solve', data={'state': state})
+    key = json.loads(r.text)    # json content
+    return jsonify(key)
+
+@app.route('/a', methods=['GET'])
+def test():
+    stateArray = [33, 16, 38, 3, 4, 41, 29, 10, 24, 51, 1, 18, 34, 13, 12, 2, 52, 26, 36, 50, 6, 32, 22, 14, 44, 37, 27,
+                  45, 5, 8, 43, 31, 25, 42, 39, 0, 20, 28, 47, 7, 40, 46, 15, 30, 35, 53, 21, 11, 48, 49, 19, 17, 23, 9]
+    state = np.array(stateArray)
+    res = nnetSolve.solve(state)
+    return "a"
 
 
 @app.route('/solvebyinput', methods=['POST'])
