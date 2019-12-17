@@ -1,3 +1,5 @@
-# Hello_World
-learn how to use GitHub by LXR 
-test remane 
+# 魔方说明
+魔方返回的求解步骤说明：
+
+F,B,L,R,U,D分别表示front, back, left, right, up, down这6个面，并且用着6个字母表示对应的面顺时针旋转 90° ，右上角加＇号表示逆时针旋转  90°。比如R和 R '分别表示右面顺时针旋转 和逆时针旋转 。
+
