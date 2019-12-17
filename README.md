@@ -1,1 +1,1 @@
-useing DeepCubA solving magic cube.
+Useing DeepCubA solving magic cube.
