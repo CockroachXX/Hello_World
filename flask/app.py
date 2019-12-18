@@ -62,15 +62,6 @@ def mainPage():
     return render_template('mofang.html')
 
 
-@app.route('/test')
-def mofang3D():
-    return render_template('mofang3D.html')
-
-
-@app.route('/test2')
-def mofangInput():
-    return render_template('input.html')
-
 
 @app.route('/initState', methods=['POST'])
 def initState():
@@ -78,7 +69,7 @@ def initState():
             'rotateIdxs_old': rotateIdxs_old, 'state': state, 'stateToFE': stateToFE}
     return jsonify(data)
 
-'''
+
 @app.route('/solve', methods=['POST'])
 def solve():
     # FEToState = [6, 3, 0, 7, 4, 1, 8, 5, 2, 15, 12, 9, 16, 13, 10, 17, 14, 11, 24, 21, 18, 25, 22, 19, 26, 23, 20, 33,
@@ -119,16 +110,7 @@ def solve():
     data = {'moves': moves, 'moves_rev': moves_rev, 'solve_text': solve_text}
     print data
     return jsonify(data)
-'''
 
-@app.route('/solve', methods=['POST'])
-def solve():
-    url = 'http://deepcube.igb.uci.edu'
-    import requests
-    state = request.form.get('state')
-    r = requests.post(url + '/solve', data={'state': state})
-    key = json.loads(r.text)    # json content
-    return jsonify(key)
 
 @app.route('/a', methods=['GET'])
 def test():
